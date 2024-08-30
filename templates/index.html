@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    #calc-form {
+      width: 300px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #calc-form input[type="number"] {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 20px;
+      padding: 10px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+    }
+
+    #calc-form button[type="submit"] {
+      width: 100%;
+      height: 40px;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #calc-form button[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+
+    #result {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div id="calc-form" class="card">
+          <div class="card-body">
+            <input type="number" id="num1" placeholder="Number 1" class="form-control">
+            <input type="number" id="num2" placeholder="Number 2" class="form-control">
+            <button type="submit" id="calc-btn" class="btn btn-primary">Calculate</button>
+            <p id="result" class="text-center"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('calc-form');
+    const num1Input = document.getElementById('num1');
+    const num2Input = document.getElementById('num2');
+    const calcBtn = document.getElementById('calc-btn');
+    const resultPara = document.getElementById('result');
+
+    calcBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const num1 = parseInt(num1Input.value);
+      const num2 = parseInt(num2Input.value);
+      fetch('/calculate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ num1, num2 })
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Invalid response from server');
+        }
+      })
+      .then(data => {
+        if (data.result) {
+          resultPara.textContent = `Result: ${data.result}`;
+        } else {
+          resultPara.textContent = 'Error: Invalid response from server';
+        }
+      })
+      .catch(error => {
+        resultPara.textContent = 'Error: ' + error.message;
+      });
+    });
+  </script>
+</body>
+</html>

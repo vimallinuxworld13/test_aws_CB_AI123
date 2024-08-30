@@ -1,0 +1,31 @@
+version: 0.2.0
+
+phases:
+  install:
+    commands:
+      - echo "Installing dependencies..."
+      - pip install --upgrade awscli
+      - aws --version
+  pre_build:
+    commands:
+      - echo "Logging in to Docker Hub..."
+      - docker login -u vimal13 -p $DOCKER_PASSWORD
+      - echo "Building Docker image..."
+      - docker build -t vimal13/LWweb .
+  build:
+    commands:
+      - echo "Pushing Docker image to Docker Hub..."
+      - docker push vimal13/LWweb
+  post_build:
+    commands:
+      - echo "Cleaning up..."
+      - docker logout
+
+env:
+  DOCKER_PASSWORD:
+    type: PARAMETER_STORE
+    value: /docker/password
+
+artifacts:
+  files:
+    - '**/*'
