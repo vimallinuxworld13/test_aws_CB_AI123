@@ -13,11 +13,11 @@ phases:
       - echo "Logging in to Docker Hub..."
       - docker login -u vimal13 -p $DOCKER_PASSWORD
       - echo "Building Docker image..."
-      - docker build -t vimal13/LWweb .
+      - docker build -t vimal13/lwweb .
   build:
     commands:
       - echo "Pushing Docker image to Docker Hub..."
-      - docker push vimal13/LWweb
+      - docker push vimal13/lwweb
   post_build:
     commands:
       - echo "Cleaning up..."
