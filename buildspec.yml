@@ -8,8 +8,10 @@ phases:
       - aws --version
   pre_build:
     commands:
+      - echo "Decrypting Docker password..."
+      - DOCKER_PASSWORD=$(aws ssm get-parameter --name dockerpassword --with-decryption --query 'Parameter.Value' --output text)
       - echo "Logging in to Docker Hub..."
-      - docker login -u vimal13 -p $(aws ssm get-parameter --name dockerpassword --query 'Parameter.Value' --output text)
+      - docker login -u vimal13 -p $DOCKER_PASSWORD
       - echo "Building Docker image..."
       - docker build -t vimal13/LWweb .
   build:
