@@ -17,4 +17,5 @@ COPY app.py .
 EXPOSE 5000
 
 # Run the command to start the application when the container launches
-CMD ["python", "app.py"]
+# CMD ["python", "app.py"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "--log-level", "debug", "app:app"]
