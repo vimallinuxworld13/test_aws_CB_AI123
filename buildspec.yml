@@ -9,7 +9,7 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Docker Hub..."
-      - docker login -u vimal13 -p $(aws ssm get-parameter --name /docker/password --query 'Parameter.Value' --output text)
+      - docker login -u vimal13 -p $(aws ssm get-parameter --name dockerpassword --query 'Parameter.Value' --output text)
       - echo "Building Docker image..."
       - docker build -t vimal13/LWweb .
   build:
