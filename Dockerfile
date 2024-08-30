@@ -11,11 +11,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
-COPY app.py .
+COPY . .
 
 # Expose the port the application will run on
 EXPOSE 5000
 
 # Run the command to start the application when the container launches
-# CMD ["python", "app.py"]
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "--log-level", "debug", "app:app"]
+CMD ["python", "app.py"]
