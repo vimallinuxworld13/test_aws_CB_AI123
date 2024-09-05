@@ -6,3 +6,4 @@ phases:
       - echo "Installing dependencies..."
       - pip install --upgrade awscli
       - aws --version
+      - docker info
