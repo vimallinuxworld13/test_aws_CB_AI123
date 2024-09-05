@@ -14,7 +14,7 @@ phases:
       - docker build  -t vimal13/lwwebworkshop .
       - docker images
 
-   post_build:
+  post_build:
     commands:
       - echo "final pushing image to docker hub .."
       - docker push vimal13/lwwebworkshop
