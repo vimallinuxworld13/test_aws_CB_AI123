@@ -7,3 +7,9 @@ phases:
       - pip install --upgrade awscli
       - aws --version
       - docker info
+
+  build:
+    commands:
+      - echo "build the docker image ..."
+      - docker build  -t vimal13/lwwebworkshop .
+      - docker images
