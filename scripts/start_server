@@ -1,0 +1,4 @@
+#!/bin/bash
+systemctl enable docker --now
+
+docker run -dit -p 80:3000 vimal13/lwwebworkshop
