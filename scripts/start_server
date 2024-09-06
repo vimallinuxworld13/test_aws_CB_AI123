@@ -1,4 +1,6 @@
 #!/bin/bash
 systemctl enable docker --now
 
-docker run -dit -p 80:3000 vimal13/lwwebworkshop
+docker rm -f myweb
+
+docker run -dit --name myweb -p 80:5000 vimal13/lwwebworkshop
