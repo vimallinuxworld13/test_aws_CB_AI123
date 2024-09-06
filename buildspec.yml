@@ -26,3 +26,6 @@ phases:
     commands:
       - echo "final pushing image to docker hub .."
       - docker push vimal13/lwwebworkshop
+
+artifacts:
+  files: imagedefinitions.json
