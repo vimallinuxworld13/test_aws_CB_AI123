@@ -28,4 +28,5 @@ phases:
       - docker push vimal13/lwwebworkshop
 
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - '**/*'
